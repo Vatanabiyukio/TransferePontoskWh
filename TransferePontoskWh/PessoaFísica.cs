@@ -1,17 +1,19 @@
+using System.Collections.Generic;
+
 namespace TransferePontoskWh
 {
     public class PessoaFísica : Pessoa
     {
-        private string Cpf { get; set; }
-
-        public PessoaFísica(string nome, string cpf, string email, string celular, string endereço)
+        public PessoaFísica(string nome, string cpf, string email, string celular)
         {
-            this.Nome = nome;
-            this.Cpf = cpf;
-            this.Email = email;
-            this.Celular = celular;
-            this.Endereço = endereço;
+            Nome = nome;
+            Cpf = cpf;
+            Email = email;
+            Celular = celular;
+            Bases = new List<Base>();
+            Lista.AdicionarListaPessoaFísica(this);
         }
-        
+
+        public string Cpf { get; set; }
     }
 }

@@ -38,6 +38,9 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="Base.cs" />
+        <Compile Include="Lista.cs" />
+        <Compile Include="Menu.cs" />
         <Compile Include="Pessoa.cs" />
         <Compile Include="PessoaFísica.cs" />
         <Compile Include="PessoaJurídica.cs" />
