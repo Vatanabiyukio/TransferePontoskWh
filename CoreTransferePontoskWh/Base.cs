@@ -28,16 +28,19 @@ namespace TransferePontoskWh
             set
             {
                 _saldoDisponível = value;
-                // if (_saldoDisponível >= EnergiaTotalProduzida + EnergiaTotalRecebida - EnergiaTotalTransferida)
-                // {
-                //     _montanteCrédito = _saldoDisponível - EnergiaTotalProduzida + EnergiaTotalRecebida - EnergiaTotalTransferida;
-                //     _montanteDívida = 0.0m;
-                // }
-                // else
-                // {
-                //     _montanteDívida = EnergiaTotalProduzida + EnergiaTotalRecebida - EnergiaTotalTransferida - SaldoDisponível;
-                //     _montanteCrédito = 0.0m;
-                // }
+                if (_saldoDisponível >= EnergiaTotalProduzida + EnergiaTotalRecebida - EnergiaTotalTransferida)
+                {
+                    _montanteCrédito = _saldoDisponível -
+                                       (EnergiaTotalProduzida + EnergiaTotalRecebida - EnergiaTotalTransferida);
+                    _montanteDívida = 0.0m;
+                    _saldoDisponível = EnergiaTotalProduzida + EnergiaTotalRecebida - EnergiaTotalTransferida;
+                }
+                else
+                {
+                    _montanteDívida = EnergiaTotalProduzida + EnergiaTotalRecebida - EnergiaTotalTransferida -
+                                      SaldoDisponível;
+                    _montanteCrédito = 0.0m;
+                }
             }
         }
 
@@ -46,7 +49,7 @@ namespace TransferePontoskWh
             get => _montanteDívida;
             set
             {
-                _montanteDívida = value;
+                if (!(MontanteCrédito == 0.0m && SaldoDisponível == 0.0m)) _montanteDívida = value;
                 if (MontanteCrédito != 0.0m)
                 {
                     if (MontanteCrédito >= value)
@@ -60,25 +63,26 @@ namespace TransferePontoskWh
                         MontanteCrédito = 0.0m;
                     }
                 }
-                else
+
+                if (_montanteDívida != 0.0m)
                 {
                     if (SaldoDisponível != 0.0m)
                     {
-                        if (SaldoDisponível >= value)
+                        if (SaldoDisponível >= _montanteDívida)
                         {
+                            _saldoDisponível -= _montanteDívida;
                             _montanteDívida = 0.0m;
-                            SaldoDisponível -= value;
                         }
                         else
                         {
                             value -= SaldoDisponível;
-                            SaldoDisponível = 0.0m;
+                            _saldoDisponível = 0.0m;
                             _montanteDívida = value;
                         }
                     }
                     else
                     {
-                        _montanteDívida = value;
+                        _montanteDívida += value;
                     }
                 }
             }
@@ -95,7 +99,7 @@ namespace TransferePontoskWh
                     if (MontanteDívida >= value)
                     {
                         _montanteCrédito = 0.0m;
-                        MontanteDívida -= value;
+                        _montanteDívida -= value;
                     }
                     else
                     {
@@ -116,11 +120,11 @@ namespace TransferePontoskWh
                     {
                         _montanteCrédito -= EnergiaTotalProduzida + EnergiaTotalRecebida - EnergiaTotalTransferida -
                                             SaldoDisponível;
-                        SaldoDisponível = EnergiaTotalProduzida + EnergiaTotalRecebida - EnergiaTotalTransferida;
+                        _saldoDisponível = EnergiaTotalProduzida + EnergiaTotalRecebida - EnergiaTotalTransferida;
                     }
                     else
                     {
-                        SaldoDisponível += _montanteCrédito;
+                        _saldoDisponível += _montanteCrédito;
                         _montanteCrédito = 0.0m;
                     }
                 }

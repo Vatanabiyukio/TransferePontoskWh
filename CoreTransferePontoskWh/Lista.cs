@@ -5,9 +5,9 @@ namespace TransferePontoskWh
 {
     public static class Lista
     {
-        public static List<PessoaFísica> ListaPessoaFísica = new List<PessoaFísica>();
-        public static List<PessoaJurídica> ListaPessoaJurídica = new List<PessoaJurídica>();
-        public static List<Base> ListaBase = new List<Base>();
+        public static List<PessoaFísica> ListaPessoaFísica = new();
+        public static List<PessoaJurídica> ListaPessoaJurídica = new();
+        public static List<Base> ListaBase = new();
 
         public static int PesquisarListaPessoaFísica(string cpf)
         {
