@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace TransferePontoskWh
+namespace CoreTransferePontoskWh
 {
     public class PessoaJurídica : Pessoa
     {

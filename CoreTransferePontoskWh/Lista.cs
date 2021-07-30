@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace TransferePontoskWh
+namespace CoreTransferePontoskWh
 {
     public static class Lista
     {

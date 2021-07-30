@@ -1,6 +1,6 @@
 using System;
 
-namespace TransferePontoskWh
+namespace CoreTransferePontoskWh
 {
     public static class Menu
     {

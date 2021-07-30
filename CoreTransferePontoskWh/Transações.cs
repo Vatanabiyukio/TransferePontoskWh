@@ -1,4 +1,4 @@
-namespace TransferePontoskWh
+namespace CoreTransferePontoskWh
 {
     public class Transações
     {
