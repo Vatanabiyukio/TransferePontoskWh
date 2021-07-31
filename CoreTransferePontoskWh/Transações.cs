@@ -40,10 +40,16 @@ namespace CoreTransferePontoskWh
             Console.WriteLine($"[!] Transferência: \"{endereçoOrigem}\" -> \"{endereçoDestino}\"");
             Console.WriteLine("Por favor, insira o valor para transferência:");
             var valor = decimal.Parse(Console.ReadLine()!);
-            Lista.ListaBase[Lista.PesquisarListaBase(endereçoOrigem)].EnergiaTotalTransferida += valor;
-            Lista.ListaBase[Lista.PesquisarListaBase(endereçoDestino)].EnergiaTotalRecebida += valor;
-            Console.WriteLine("[!] Transferência Bem-Sucedida!");
-            return true;
+            if (Lista.ListaBase[Lista.PesquisarListaBase(endereçoOrigem)].CapacidadeTotal >= valor)
+            {
+                Lista.ListaBase[Lista.PesquisarListaBase(endereçoOrigem)].EnergiaTotalTransferida += valor;
+                Lista.ListaBase[Lista.PesquisarListaBase(endereçoDestino)].EnergiaTotalRecebida += valor;
+                Console.WriteLine("[!] Transferência Bem-Sucedida!");
+                return true;
+            }
+            Console.WriteLine($"[!] Não é possível realizar a transferência com o valor de {valor} kWh. Tente com um valor menor ou igual a {Lista.ListaBase[Lista.PesquisarListaBase(endereçoOrigem)].CapacidadeTotal} kWh");
+            Console.WriteLine("[!] Desculpe, operação cancelada!");
+            return false;
         }
 
         public static bool TransferirBase()

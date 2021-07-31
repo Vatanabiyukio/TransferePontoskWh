@@ -23,7 +23,7 @@ namespace CoreTransferePontoskWh
         public string Dono { get; set; }
         public string Endereço { get; set; }
 
-        private decimal CapacidadeTotal => EnergiaTotalProduzida + EnergiaTotalRecebida - EnergiaTotalTransferida;
+        public decimal CapacidadeTotal => EnergiaTotalProduzida + EnergiaTotalRecebida - EnergiaTotalTransferida;
 
         public decimal SaldoDisponível
         {
@@ -247,7 +247,7 @@ namespace CoreTransferePontoskWh
             {
                 var temp = _energiaTotalTransferida;
                 _energiaTotalTransferida = value;
-                SaldoDisponível = value - temp;
+                SaldoDisponível = temp - value;
             }
         }
 
