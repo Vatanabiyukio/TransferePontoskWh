@@ -2,14 +2,15 @@ namespace CoreTransferePontoskWh
 {
     public class Base
     {
+        private decimal _energiaTotalProduzida;
+        private decimal _energiaTotalRecebida;
+        private decimal _energiaTotalTransferida;
         private decimal _montanteCrédito;
         private decimal _montanteDívida;
         private decimal _saldoDisponível;
-        private decimal _energiaTotalProduzida;
-        private decimal _energiaTotalTransferida;
-        private decimal _energiaTotalRecebida;
 
-        public Base(string dono, string endereço, decimal energiaTotalProduzida = 0.0m, decimal energiaTotalTransferida = 0.0m,
+        public Base(string dono, string endereço, decimal energiaTotalProduzida = 0.0m,
+            decimal energiaTotalTransferida = 0.0m,
             decimal energiaTotalRecebida = 0.0m)
         {
             Dono = dono;
@@ -20,6 +21,7 @@ namespace CoreTransferePontoskWh
             _saldoDisponível = CapacidadeTotal;
             Lista.AdicionarListaBase(this);
         }
+
         public string Dono { get; set; }
         public string Endereço { get; set; }
 
@@ -28,7 +30,7 @@ namespace CoreTransferePontoskWh
         public decimal SaldoDisponível
         {
             get => _saldoDisponível;
-            set
+            private set
             {
                 if (MontanteDívida != 0.0m)
                 {
@@ -58,7 +60,7 @@ namespace CoreTransferePontoskWh
                                 }
                                 else
                                 {
-                                    MontanteCrédito = (SaldoDisponível - CapacidadeTotal) + value;
+                                    MontanteCrédito = SaldoDisponível - CapacidadeTotal + value;
                                     _saldoDisponível = CapacidadeTotal;
                                 }
                             }
@@ -91,7 +93,7 @@ namespace CoreTransferePontoskWh
                                     }
                                     else
                                     {
-                                        MontanteCrédito = (SaldoDisponível - CapacidadeTotal) + value;
+                                        MontanteCrédito = SaldoDisponível - CapacidadeTotal + value;
                                         _saldoDisponível = CapacidadeTotal;
                                     }
                                 }
@@ -137,7 +139,7 @@ namespace CoreTransferePontoskWh
                         }
                         else
                         {
-                            MontanteCrédito = (SaldoDisponível - CapacidadeTotal) + value;
+                            MontanteCrédito = SaldoDisponível - CapacidadeTotal + value;
                             _saldoDisponível = CapacidadeTotal;
                         }
                     }

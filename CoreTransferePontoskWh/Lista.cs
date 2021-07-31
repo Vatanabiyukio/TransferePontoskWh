@@ -5,14 +5,14 @@ namespace CoreTransferePontoskWh
 {
     public static class Lista
     {
-        public static List<PessoaFísica> ListaPessoaFísica = new();
-        public static List<PessoaJurídica> ListaPessoaJurídica = new();
+        public static List<PessoaFisica> ListaPessoaFisica = new();
+        public static List<PessoaJuridica> ListaPessoaJuridica = new();
         public static List<Base> ListaBase = new();
 
-        public static int PesquisarListaPessoaFísica(string cpf)
+        public static int PesquisarListaPessoaFisica(string cpf)
         {
             var i = 0;
-            foreach (var p in ListaPessoaFísica)
+            foreach (var p in ListaPessoaFisica)
             {
                 if (p.Cpf == cpf) return i;
                 i += 1;
@@ -21,10 +21,10 @@ namespace CoreTransferePontoskWh
             return -1;
         }
 
-        public static int PesquisarListaPessoaJurídica(string cnpj)
+        public static int PesquisarListaPessoaJuridica(string cnpj)
         {
             var j = 0;
-            foreach (var p in ListaPessoaJurídica)
+            foreach (var p in ListaPessoaJuridica)
             {
                 if (p.Cnpj == cnpj) return j;
                 j += 1;
@@ -45,19 +45,19 @@ namespace CoreTransferePontoskWh
             return -1;
         }
 
-        public static bool AdicionarListaPessoaFísica(PessoaFísica p)
+        public static bool AdicionarListaPessoaFisica(PessoaFisica p)
         {
-            if (ListaPessoaFísica.Contains(p)) return false;
-            if (PesquisarListaPessoaFísica(p.Cpf) != -1) return false;
-            ListaPessoaFísica.Add(p);
+            if (ListaPessoaFisica.Contains(p)) return false;
+            if (PesquisarListaPessoaFisica(p.Cpf) != -1) return false;
+            ListaPessoaFisica.Add(p);
             return true;
         }
 
-        public static bool AdicionarListaPessoaJurídica(PessoaJurídica p)
+        public static bool AdicionarListaPessoaJuridica(PessoaJuridica p)
         {
-            if (ListaPessoaJurídica.Contains(p)) return false;
-            if (PesquisarListaPessoaJurídica(p.Cnpj) != -1) return false;
-            ListaPessoaJurídica.Add(p);
+            if (ListaPessoaJuridica.Contains(p)) return false;
+            if (PesquisarListaPessoaJuridica(p.Cnpj) != -1) return false;
+            ListaPessoaJuridica.Add(p);
             return true;
         }
 
@@ -69,14 +69,14 @@ namespace CoreTransferePontoskWh
             return true;
         }
 
-        public static void ListarListaPessoaFísica()
+        public static void ListarListaPessoaFisica()
         {
-            foreach (var p in ListaPessoaFísica) Console.WriteLine(p.Cpf);
+            foreach (var p in ListaPessoaFisica) Console.WriteLine(p.Cpf);
         }
 
-        public static void ListarListaPessoaJurídica()
+        public static void ListarListaPessoaJuridica()
         {
-            foreach (var p in ListaPessoaJurídica) Console.WriteLine(p.Cnpj);
+            foreach (var p in ListaPessoaJuridica) Console.WriteLine(p.Cnpj);
         }
 
         public static void ListarListaBase()
@@ -84,19 +84,19 @@ namespace CoreTransferePontoskWh
             foreach (var b in ListaBase) Console.WriteLine(b.Endereço);
         }
 
-        public static bool RemoverListaPessoaFísica(string cpf)
+        public static bool RemoverListaPessoaFisica(string cpf)
         {
-            var index = PesquisarListaPessoaFísica(cpf);
+            var index = PesquisarListaPessoaFisica(cpf);
             if (index == -1) return false;
-            ListaPessoaFísica.RemoveAt(index);
+            ListaPessoaFisica.RemoveAt(index);
             return true;
         }
 
-        public static bool RemoverListaPessoaJurídica(string cnpj)
+        public static bool RemoverListaPessoaJuridica(string cnpj)
         {
-            var index = PesquisarListaPessoaJurídica(cnpj);
+            var index = PesquisarListaPessoaJuridica(cnpj);
             if (index == -1) return false;
-            ListaPessoaJurídica.RemoveAt(index);
+            ListaPessoaJuridica.RemoveAt(index);
             return true;
         }
 
