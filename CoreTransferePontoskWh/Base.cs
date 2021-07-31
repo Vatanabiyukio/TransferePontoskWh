@@ -9,17 +9,18 @@ namespace CoreTransferePontoskWh
         private decimal _energiaTotalTransferida;
         private decimal _energiaTotalRecebida;
 
-        public Base(string endereço, decimal energiaTotalProduzida = 0.0m, decimal energiaTotalTransferida = 0.0m,
+        public Base(string dono, string endereço, decimal energiaTotalProduzida = 0.0m, decimal energiaTotalTransferida = 0.0m,
             decimal energiaTotalRecebida = 0.0m)
         {
+            Dono = dono;
             Endereço = endereço;
-            EnergiaTotalProduzida = energiaTotalProduzida;
-            EnergiaTotalTransferida = energiaTotalTransferida;
-            EnergiaTotalRecebida = energiaTotalRecebida;
-            SaldoDisponível = CapacidadeTotal;
+            _energiaTotalProduzida = energiaTotalProduzida;
+            _energiaTotalTransferida = energiaTotalTransferida;
+            _energiaTotalRecebida = energiaTotalRecebida;
+            _saldoDisponível = CapacidadeTotal;
             Lista.AdicionarListaBase(this);
         }
-
+        public string Dono { get; set; }
         public string Endereço { get; set; }
 
         private decimal CapacidadeTotal => EnergiaTotalProduzida + EnergiaTotalRecebida - EnergiaTotalTransferida;
@@ -29,17 +30,117 @@ namespace CoreTransferePontoskWh
             get => _saldoDisponível;
             set
             {
-                _saldoDisponível = value;
-                if (_saldoDisponível >= CapacidadeTotal)
+                if (MontanteDívida != 0.0m)
                 {
-                    _montanteCrédito = _saldoDisponível - CapacidadeTotal;
-                    _montanteDívida = 0.0m;
-                    _saldoDisponível = CapacidadeTotal;
+                    if (MontanteCrédito != 0.0m)
+                    {
+                        if (MontanteCrédito >= MontanteDívida)
+                        {
+                            MontanteCrédito -= _montanteDívida;
+                            _montanteDívida = 0;
+                            if (SaldoDisponível == CapacidadeTotal)
+                            {
+                                MontanteCrédito = value;
+                            }
+                            else
+                            {
+                                if (SaldoDisponível <= CapacidadeTotal)
+                                {
+                                    if (SaldoDisponível + value <= CapacidadeTotal)
+                                    {
+                                        _saldoDisponível += value;
+                                    }
+                                    else
+                                    {
+                                        MontanteCrédito = CapacidadeTotal - SaldoDisponível + value;
+                                        _saldoDisponível = CapacidadeTotal;
+                                    }
+                                }
+                                else
+                                {
+                                    MontanteCrédito = (SaldoDisponível - CapacidadeTotal) + value;
+                                    _saldoDisponível = CapacidadeTotal;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            MontanteDívida -= MontanteCrédito;
+                            _montanteCrédito = 0;
+                            if (SaldoDisponível >= MontanteDívida)
+                            {
+                                _saldoDisponível -= MontanteDívida;
+                                _montanteDívida = 0;
+                                if (SaldoDisponível == CapacidadeTotal)
+                                {
+                                    MontanteCrédito = value;
+                                }
+                                else
+                                {
+                                    if (SaldoDisponível <= CapacidadeTotal)
+                                    {
+                                        if (SaldoDisponível + value <= CapacidadeTotal)
+                                        {
+                                            _saldoDisponível += value;
+                                        }
+                                        else
+                                        {
+                                            MontanteCrédito = CapacidadeTotal - SaldoDisponível + value;
+                                            _saldoDisponível = CapacidadeTotal;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        MontanteCrédito = (SaldoDisponível - CapacidadeTotal) + value;
+                                        _saldoDisponível = CapacidadeTotal;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                MontanteDívida -= SaldoDisponível;
+                                _saldoDisponível = 0;
+                                if (MontanteDívida <= value)
+                                {
+                                    value -= MontanteDívida;
+                                    _montanteDívida = 0;
+                                    _saldoDisponível = value;
+                                }
+                                else
+                                {
+                                    MontanteDívida -= value;
+                                    value = 0;
+                                }
+                            }
+                        }
+                    }
                 }
                 else
                 {
-                    _montanteDívida = CapacidadeTotal - SaldoDisponível;
-                    _montanteCrédito = 0.0m;
+                    if (SaldoDisponível == CapacidadeTotal)
+                    {
+                        MontanteCrédito = value;
+                    }
+                    else
+                    {
+                        if (SaldoDisponível <= CapacidadeTotal)
+                        {
+                            if (SaldoDisponível + value <= CapacidadeTotal)
+                            {
+                                _saldoDisponível += value;
+                            }
+                            else
+                            {
+                                MontanteCrédito = CapacidadeTotal - SaldoDisponível + value;
+                                _saldoDisponível = CapacidadeTotal;
+                            }
+                        }
+                        else
+                        {
+                            MontanteCrédito = (SaldoDisponível - CapacidadeTotal) + value;
+                            _saldoDisponível = CapacidadeTotal;
+                        }
+                    }
                 }
             }
         }
@@ -128,44 +229,14 @@ namespace CoreTransferePontoskWh
             }
         }
 
-        public void AtualizaValoresInternos()
-        {
-            var diferença = CapacidadeTotal - SaldoDisponível;
-            if (diferença >= 0)
-            {
-                if (MontanteCrédito >= diferença)
-                {
-                    _montanteCrédito -= diferença;
-                }
-                // else
-                // {
-                //     diferença -= _montanteCrédito;
-                //     MontanteDívida = diferença;
-                // }
-            }
-            else
-            {
-                diferença *= -1;
-                _saldoDisponível = CapacidadeTotal;
-                if (MontanteDívida >= diferença)
-                {
-                    _montanteDívida -= diferença;
-                }
-                else
-                {
-                    diferença -= _montanteDívida;
-                    MontanteCrédito = diferença;
-                }
-            }
-        }
-
         public decimal EnergiaTotalProduzida
         {
             get => _energiaTotalProduzida;
             set
             {
+                var temp = _energiaTotalProduzida;
                 _energiaTotalProduzida = value;
-                AtualizaValoresInternos();
+                SaldoDisponível = value - temp;
             }
         }
 
@@ -174,8 +245,9 @@ namespace CoreTransferePontoskWh
             get => _energiaTotalTransferida;
             set
             {
+                var temp = _energiaTotalTransferida;
                 _energiaTotalTransferida = value;
-                AtualizaValoresInternos();
+                SaldoDisponível = value - temp;
             }
         }
 
@@ -184,8 +256,9 @@ namespace CoreTransferePontoskWh
             get => _energiaTotalRecebida;
             set
             {
+                var temp = _energiaTotalRecebida;
                 _energiaTotalRecebida = value;
-                AtualizaValoresInternos();
+                SaldoDisponível = value - temp;
             }
         }
     }
