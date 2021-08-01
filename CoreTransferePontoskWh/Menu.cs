@@ -4,7 +4,6 @@ namespace CoreTransferePontoskWh
 {
     public class Menu
     {
-
         private static void Opt()
         {
             Console.WriteLine("============= MENU =============");
@@ -21,14 +20,15 @@ namespace CoreTransferePontoskWh
             Console.WriteLine("= [ h  ] Mostra este menu");
             Console.WriteLine("= [ q  ] Sair");
         }
+
         public static void Mostrar()
         {
-            Menu.Opt();
+            Opt();
             while (true)
             {
                 Console.WriteLine("=================================");
                 Console.WriteLine("Opção: ");
-                string opção = Console.ReadLine()!.ToLower();
+                var opção = Console.ReadLine()!.ToLower();
                 Console.WriteLine("=================================\n");
                 Console.Clear();
                 switch (opção)
@@ -67,18 +67,16 @@ namespace CoreTransferePontoskWh
                         Console.WriteLine("[!] Até mais!");
                         break;
                     case "h":
-                        Menu.Opt();
+                        Opt();
                         break;
                     default:
                         Console.WriteLine("[!] Opção inválida!");
-                        Menu.Opt();
+                        Opt();
                         break;
                 }
+
                 Console.WriteLine();
-                if (opção == "q")
-                {
-                    break;
-                }
+                if (opção == "q") break;
             }
         }
     }

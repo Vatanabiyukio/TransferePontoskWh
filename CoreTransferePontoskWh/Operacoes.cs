@@ -345,6 +345,7 @@ namespace CoreTransferePontoskWh
                 Console.WriteLine("[!] Desculpe, operação cancelada!");
                 return false;
             }
+
             Console.WriteLine("[*] Por favor, insira o endereço da base a ser descadastrada:");
             var endereço = Console.ReadLine();
             if (Lista.PesquisarListaBase(endereço) == -1)

@@ -16,7 +16,7 @@ namespace CoreTransferePontoskWh
         }
 
         public string Cnpj { get; set; }
-        
+
         public void Apresentar()
         {
             Console.WriteLine("=============================");
@@ -28,18 +28,12 @@ namespace CoreTransferePontoskWh
             if (Bases.Count == 1)
             {
                 Console.WriteLine("Propriedade: ");
-                foreach (var pBase in Bases)
-                {
-                    pBase.Apresentar();
-                }
+                foreach (var pBase in Bases) pBase.Apresentar();
             }
             else if (Bases.Count > 1)
             {
                 Console.WriteLine("Propriedades: ");
-                foreach (var pBase in Bases)
-                {
-                    pBase.Apresentar();
-                }
+                foreach (var pBase in Bases) pBase.Apresentar();
             }
             else
             {

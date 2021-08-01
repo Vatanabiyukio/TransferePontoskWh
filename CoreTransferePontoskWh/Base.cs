@@ -24,23 +24,6 @@ namespace CoreTransferePontoskWh
             Lista.AdicionarListaBase(this);
         }
 
-        public void Apresentar()
-        {
-            Console.WriteLine("=============================");
-            Console.WriteLine($"Informações de {Endereço}:");
-            Console.WriteLine($"  Endereço: {Endereço}");
-            Console.WriteLine($"  Dono: {Dono}");
-            Console.WriteLine("Informações Financeiras:");
-            Console.WriteLine($"  Saldo Disponível: {_saldoDisponível}");
-            Console.WriteLine($"  Mont. Crédito: {_montanteCrédito}");
-            Console.WriteLine($"  Mont. Dívida: {_montanteDívida}");
-            Console.WriteLine("Informações Energéticas:");
-            Console.WriteLine($"  Energ. Produzida: {_energiaTotalProduzida}");
-            Console.WriteLine($"  Energ. Recebida: {_energiaTotalRecebida}");
-            Console.WriteLine($"  Energ. Transferida: {_energiaTotalTransferida}");
-            Console.WriteLine("=============================");
-        }
-
         public string Dono { get; set; }
         public string Endereço { get; set; }
 
@@ -281,6 +264,23 @@ namespace CoreTransferePontoskWh
                 _energiaTotalRecebida = value;
                 SaldoDisponível = value - temp;
             }
+        }
+
+        public void Apresentar()
+        {
+            Console.WriteLine("=============================");
+            Console.WriteLine($"Informações de {Endereço}:");
+            Console.WriteLine($"  Endereço: {Endereço}");
+            Console.WriteLine($"  Dono: {Dono}");
+            Console.WriteLine("Informações Financeiras:");
+            Console.WriteLine($"  Saldo Disponível: {_saldoDisponível}");
+            Console.WriteLine($"  Mont. Crédito: {_montanteCrédito}");
+            Console.WriteLine($"  Mont. Dívida: {_montanteDívida}");
+            Console.WriteLine("Informações Energéticas:");
+            Console.WriteLine($"  Energ. Produzida: {_energiaTotalProduzida}");
+            Console.WriteLine($"  Energ. Recebida: {_energiaTotalRecebida}");
+            Console.WriteLine($"  Energ. Transferida: {_energiaTotalTransferida}");
+            Console.WriteLine("=============================");
         }
     }
 }

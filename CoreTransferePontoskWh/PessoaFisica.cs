@@ -29,20 +29,14 @@ namespace CoreTransferePontoskWh
             {
                 Console.WriteLine("Propriedade: ");
                 Console.WriteLine("+++++++++++++++++++++++++++++");
-                foreach (var pBase in Bases)
-                {
-                    pBase.Apresentar();
-                }
+                foreach (var pBase in Bases) pBase.Apresentar();
                 Console.WriteLine("+++++++++++++++++++++++++++++");
             }
             else if (Bases.Count > 1)
             {
                 Console.WriteLine("Propriedades: ");
                 Console.WriteLine("+++++++++++++++++++++++++++++");
-                foreach (var pBase in Bases)
-                {
-                    pBase.Apresentar();
-                }
+                foreach (var pBase in Bases) pBase.Apresentar();
                 Console.WriteLine("+++++++++++++++++++++++++++++");
             }
             else
