@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace CoreTransferePontoskWh
@@ -15,5 +16,39 @@ namespace CoreTransferePontoskWh
         }
 
         public string Cpf { get; set; }
+
+        public void Apresentar()
+        {
+            Console.WriteLine("=============================");
+            Console.WriteLine($"Informações de {Cpf}:");
+            Console.WriteLine($"  Nome: {Nome}");
+            Console.WriteLine($"  CPF: {Cpf}");
+            Console.WriteLine($"  Email: {Email}");
+            Console.WriteLine($"  Celular: {Celular}");
+            if (Bases.Count == 1)
+            {
+                Console.WriteLine("Propriedade: ");
+                Console.WriteLine("+++++++++++++++++++++++++++++");
+                foreach (var pBase in Bases)
+                {
+                    pBase.Apresentar();
+                }
+                Console.WriteLine("+++++++++++++++++++++++++++++");
+            }
+            else if (Bases.Count > 1)
+            {
+                Console.WriteLine("Propriedades: ");
+                Console.WriteLine("+++++++++++++++++++++++++++++");
+                foreach (var pBase in Bases)
+                {
+                    pBase.Apresentar();
+                }
+                Console.WriteLine("+++++++++++++++++++++++++++++");
+            }
+            else
+            {
+                Console.WriteLine("=============================");
+            }
+        }
     }
 }

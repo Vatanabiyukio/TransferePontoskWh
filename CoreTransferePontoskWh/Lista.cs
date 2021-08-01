@@ -71,17 +71,20 @@ namespace CoreTransferePontoskWh
 
         public static void ListarListaPessoaFisica()
         {
-            foreach (var p in ListaPessoaFisica) Console.WriteLine(p.Cpf);
+            foreach (var p in ListaPessoaFisica) p.Apresentar();
+            if (ListaPessoaFisica.Count == 0) Console.WriteLine("[!] Nenhum resultado!");
         }
 
         public static void ListarListaPessoaJuridica()
         {
-            foreach (var p in ListaPessoaJuridica) Console.WriteLine(p.Cnpj);
+            foreach (var p in ListaPessoaJuridica) p.Apresentar();
+            if (ListaPessoaJuridica.Count == 0) Console.WriteLine("[!] Nenhum resultado!");
         }
 
         public static void ListarListaBase()
         {
-            foreach (var b in ListaBase) Console.WriteLine(b.Endereço);
+            foreach (var b in ListaBase) b.Apresentar();
+            if (ListaBase.Count == 0) Console.WriteLine("[!] Nenhum resultado!");
         }
 
         public static bool RemoverListaPessoaFisica(string cpf)

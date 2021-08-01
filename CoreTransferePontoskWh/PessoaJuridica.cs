@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace CoreTransferePontoskWh
@@ -15,5 +16,35 @@ namespace CoreTransferePontoskWh
         }
 
         public string Cnpj { get; set; }
+        
+        public void Apresentar()
+        {
+            Console.WriteLine("=============================");
+            Console.WriteLine($"Informações de {Cnpj}:");
+            Console.WriteLine($"  Nome: {Nome}");
+            Console.WriteLine($"  CNPJ: {Cnpj}");
+            Console.WriteLine($"  Email: {Email}");
+            Console.WriteLine($"  Celular: {Celular}");
+            if (Bases.Count == 1)
+            {
+                Console.WriteLine("Propriedade: ");
+                foreach (var pBase in Bases)
+                {
+                    pBase.Apresentar();
+                }
+            }
+            else if (Bases.Count > 1)
+            {
+                Console.WriteLine("Propriedades: ");
+                foreach (var pBase in Bases)
+                {
+                    pBase.Apresentar();
+                }
+            }
+            else
+            {
+                Console.WriteLine("=============================");
+            }
+        }
     }
 }
